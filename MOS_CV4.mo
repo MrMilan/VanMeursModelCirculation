@@ -276,5 +276,37 @@ package MOS_CV4
     connect(LeftAtrium.Inflow, bloodFlowInflow1) annotation(Line(points = {{-59, -44}, {-94, -44}, {-94, -50}}));
     annotation(Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})), Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2}), graphics = {Text(origin = {-46, -26}, lineColor = {0, 255, 0}, extent = {{-12, -10}, {12, 10}}, textString = "T0"), Text(origin = {-45, 13}, lineColor = {85, 170, 255}, extent = {{-11, -13}, {11, 13}}, textString = "Tvs"), Text(origin = {-53, 50}, lineColor = {255, 85, 0}, extent = {{-9, -10}, {9, 10}}, textString = "Tav"), Text(origin = {88, 59}, extent = {{-10, 13}, {10, -13}}, textString = "PTH"), Text(origin = {-39, 88}, lineColor = {0, 0, 127}, extent = {{-9, 10}, {13, -16}}, textString = "Tas"), Polygon(origin = {34.98, -24.02}, rotation = -90, lineColor = {255, 0, 0}, fillColor = {226, 8, 179}, fillPattern = FillPattern.HorizontalCylinder, lineThickness = 2, points = {{-52.9786, -55.9821}, {-64.9786, 4.01794}, {-26.9786, 72.0179}, {45.0214, 48.0179}, {65.0214, -5.98206}, {37.0214, -71.9821}, {-52.9786, -55.9821}, {-52.9786, -55.9821}}), Text(origin = {35, -21}, extent = {{33, -63}, {-33, 63}}, textString = "LeftHeart")}));
   end LeftHeart;
+
+  model SystemicArteries
+    Inductor inductor1 annotation(Placement(visible = true, transformation(origin = {18, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    VariableBloodResistor variableBloodResistor1 annotation(Placement(visible = true, transformation(origin = {-18, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    BloodFlowOutflow Outflow annotation(Placement(visible = true, transformation(origin = {-92, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Modelica.Blocks.Sources.Constant RETHA(k = 0.06) annotation(Placement(visible = true, transformation(origin = {-46, -30}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
+    Modelica.Blocks.Interfaces.RealInput IntrathoracicPressure annotation(Placement(visible = true, transformation(origin = {-78, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {0, 80}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+    BloodFlowInflow Inflow annotation(Placement(visible = true, transformation(origin = {92, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {92, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    BloodElasticCompartment bloodElasticCompartment1 annotation(Placement(visible = true, transformation(origin = {-50, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    BloodElasticCompartment bloodElasticCompartment2 annotation(Placement(visible = true, transformation(origin = {52, -4}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Modelica.Blocks.Sources.Constant LETHA(k = 0.0007) annotation(Placement(visible = true, transformation(origin = {16, 66}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
+    Modelica.Blocks.Sources.Constant EITHA(k = 1.43) annotation(Placement(visible = true, transformation(origin = {38, 64}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
+    Modelica.Blocks.Sources.Constant VITHAU(k = 140) annotation(Placement(visible = true, transformation(origin = {66, 68}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
+    Modelica.Blocks.Sources.Constant EETHA(k = 0.556) annotation(Placement(visible = true, transformation(origin = {-80, 22}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
+    Modelica.Blocks.Sources.Constant Pext(k = 0) annotation(Placement(visible = true, transformation(origin = {-84, 48}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
+    Modelica.Blocks.Sources.Constant VETHAU(k = 370) annotation(Placement(visible = true, transformation(origin = {-56, 52}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
+  equation
+    connect(VETHAU.y, bloodElasticCompartment1.Elastance) annotation(Line(points = {{-47, 52}, {-42, 52}, {-42, 6}}, color = {0, 0, 127}));
+    connect(bloodElasticCompartment1.ExternalPressure, Pext.y) annotation(Line(points = {{-50, 10}, {-50, 35.5}, {-75, 35.5}, {-75, 48}}, color = {0, 0, 127}));
+    connect(EETHA.y, bloodElasticCompartment1.UnstressedVolume) annotation(Line(points = {{-71, 22}, {-58, 22}, {-58, 6}}, color = {0, 0, 127}));
+    connect(VITHAU.y, bloodElasticCompartment2.Elastance) annotation(Line(points = {{66, 59}, {60, 59}, {60, 4}}, color = {0, 0, 127}));
+    connect(EITHA.y, bloodElasticCompartment2.UnstressedVolume) annotation(Line(points = {{38, 55}, {44, 55}, {44, 4}}, color = {0, 0, 127}));
+    connect(LETHA.y, inductor1.Inertance) annotation(Line(points = {{16, 57}, {18, 57}, {18, 6}}, color = {0, 0, 127}));
+    connect(bloodElasticCompartment2.ExternalPressure, IntrathoracicPressure) annotation(Line(points = {{52, 8}, {50, 8}, {50, 82}, {-70, 82}, {-70, 82}}, color = {0, 0, 127}));
+    connect(bloodElasticCompartment2.Outflow, Inflow) annotation(Line(points = {{61, -4}, {88, -4}, {88, -2}, {88, -2}}));
+    connect(bloodElasticCompartment2.Inflow, inductor1.Outflow) annotation(Line(points = {{43, -4}, {28, -4}, {28, -2}, {28, -2}}));
+    connect(bloodElasticCompartment1.Outflow, variableBloodResistor1.Outflow) annotation(Line(points = {{-41, -2}, {-26, -2}, {-26, -2}, {-26, -2}}));
+    connect(bloodElasticCompartment1.Inflow, Outflow) annotation(Line(points = {{-59, -2}, {-90, -2}, {-90, -2}, {-90, -2}}));
+    connect(RETHA.y, variableBloodResistor1.BloodResistance) annotation(Line(points = {{-37, -30}, {-18, -30}, {-18, -12}, {-18, -12}}, color = {0, 0, 127}));
+    connect(variableBloodResistor1.Inflow, inductor1.Inflow) annotation(Line(points = {{-9, -2}, {9, -2}}));
+    annotation(Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})), Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})));
+  end SystemicArteries;
   annotation(Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})), Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})));
 end MOS_CV4;
