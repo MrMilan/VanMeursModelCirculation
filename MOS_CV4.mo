@@ -116,8 +116,8 @@ package MOS_CV4
     BloodFlowOutflow Outflow annotation(Placement(visible = true, transformation(origin = {92, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {92, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     VariableBloodResistor OutflowResistor annotation(Placement(visible = true, transformation(origin = {45, 67}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
     Valve OutflowValve annotation(Placement(visible = true, transformation(origin = {-53, 67}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
-    Modelica.Blocks.Interfaces.RealInput CR annotation(Placement(visible = true, transformation(origin = {-76, -82}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-    Modelica.Blocks.Interfaces.RealInput RR annotation(Placement(visible = true, transformation(origin = {-76, 86}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Modelica.Blocks.Interfaces.RealInput RR annotation(Placement(visible = true, transformation(origin = {-76, 86}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-76, 86}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+    Modelica.Blocks.Interfaces.RealInput CR annotation(Placement(visible = true, transformation(origin = {-76, -82}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {78, 86}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   equation
     connect(RR, OutflowResistor.BloodResistance) annotation(Line(points = {{-76, 86}, {46, 86}, {46, 78}, {46, 78}}, color = {0, 0, 127}));
     connect(BackflowConductor.BloodConductance, CR) annotation(Line(points = {{-44, -79}, {-64, -79}, {-64, -80}, {-64, -80}}, color = {0, 0, 127}));
@@ -127,7 +127,7 @@ package MOS_CV4
     connect(Outflow, OutflowResistor.Outflow) annotation(Line(points = {{92, 0}, {60, 0}, {60, 67}}));
     connect(BackflowValve.bloodFlowInflow, OutflowResistor.Outflow) annotation(Line(points = {{60, -66}, {60, 67}}));
     connect(BackflowConductor.Inflow, BackflowValve.bloodFlowOutflow) annotation(Line(points = {{-30, -66}, {30, -66}}));
-    annotation(Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})), Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2}), graphics = {Text(origin = {-53, -56}, extent = {{111, 28}, {-1, 0}}, textString = "%name"), Polygon(origin = {0, 10}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, points = {{-80, 70}, {-80, -70}, {80, 70}, {80, -70}, {-80, 70}}), Text(origin = {-57, 13}, extent = {{-19, 41}, {19, -41}}, textString = "C"), Text(origin = {55, 14}, extent = {{-19, 32}, {19, -32}}, textString = "V"), Text(origin = {-48, 80}, lineColor = {232, 206, 4}, fillColor = {219, 222, 26}, extent = {{-10, 14}, {10, -14}}, textString = "RR"), Text(origin = {10, 78}, lineColor = {18, 232, 7}, fillColor = {30, 222, 20}, extent = {{-10, 14}, {10, -14}}, textString = "CR")}));
+    annotation(Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})), Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2}), graphics = {Text(origin = {-53, -56}, extent = {{111, 28}, {-1, 0}}, textString = "%name"), Polygon(origin = {0, 10}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, points = {{-80, 70}, {-80, -70}, {80, 70}, {80, -70}, {-80, 70}}), Text(origin = {-57, 13}, extent = {{-19, 41}, {19, -41}}, textString = "C"), Text(origin = {55, 14}, extent = {{-19, 32}, {19, -32}}, textString = "V"), Text(origin = {58, 84}, lineColor = {18, 232, 7}, fillColor = {30, 222, 20}, extent = {{-10, 14}, {10, -14}}, textString = "CR"), Text(origin = {-54, 88}, lineColor = {232, 206, 4}, fillColor = {219, 222, 26}, extent = {{-10, 14}, {10, -14}}, textString = "RR")}));
   end CardiacValve;
 
   model HeartIntervals
@@ -188,16 +188,35 @@ package MOS_CV4
   end VentricularElastance;
 
   model RightHeart
-    BloodFlowInflow bloodFlowInflow1 annotation(Placement(visible = true, transformation(origin = {-88, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-88, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     BloodElasticCompartment RightAtrium annotation(Placement(visible = true, transformation(origin = {-50, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     BloodElasticCompartment RightVentricle annotation(Placement(visible = true, transformation(origin = {48, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-    Valve TricuspidValve annotation(Placement(visible = true, transformation(origin = {-2, -46}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     BloodFlowOutflow bloodFlowOutflow1 annotation(Placement(visible = true, transformation(origin = {112, -42}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-    Valve pulmonicValve annotation(Placement(visible = true, transformation(origin = {82, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     AtrialElastance atrialElastance1 annotation(Placement(visible = true, transformation(origin = {-42, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     VentricularElastance ventricularElastance1 annotation(Placement(visible = true, transformation(origin = {50, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Modelica.Blocks.Interfaces.RealInput u annotation(Placement(visible = true, transformation(origin = {-100, 64}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-100, 64}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-    Modelica.Blocks.Sources.Constant const annotation(Placement(visible = true, transformation(origin = {-52, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Modelica.Blocks.Sources.Constant const5 annotation(Placement(visible = true, transformation(origin = {90, 4}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    CardiacValve tricuspidValve annotation(Placement(visible = true, transformation(origin = {-12, -44}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
+    Modelica.Blocks.Sources.Constant const3 annotation(Placement(visible = true, transformation(origin = {-22, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Modelica.Blocks.Sources.Constant const1 annotation(Placement(visible = true, transformation(origin = {16, -84}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    CardiacValve pulmonicValve annotation(Placement(visible = true, transformation(origin = {78, -44}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
+    Modelica.Blocks.Sources.Constant const4 annotation(Placement(visible = true, transformation(origin = {66, -78}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Modelica.Blocks.Sources.Constant const2 annotation(Placement(visible = true, transformation(origin = {96, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Modelica.Blocks.Interfaces.RealInput u1 annotation(Placement(visible = true, transformation(origin = {-98, 66}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-98, 66}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Modelica.Blocks.Interfaces.RealInput u2 annotation(Placement(visible = true, transformation(origin = {-96, 68}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-96, 68}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Modelica.Blocks.Interfaces.RealInput u3 annotation(Placement(visible = true, transformation(origin = {-94, 70}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-94, 70}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Modelica.Blocks.Sources.Constant const annotation(Placement(visible = true, transformation(origin = {-90, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Modelica.Blocks.Interfaces.RealInput PTH annotation(Placement(visible = true, transformation(origin = {-96, 18}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-92, 72}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    BloodFlowInflow bloodFlowInflow1 annotation(Placement(visible = true, transformation(origin = {-94, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-88, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  equation
+    connect(tricuspidValve.RR, const3.y) annotation(Line(points = {{-20, -53}, {-22, -53}, {-22, -70}, {-22, -70}}, color = {0, 0, 127}));
+    connect(tricuspidValve.CR, const1.y) annotation(Line(points = {{-4, -53}, {16, -53}, {16, -74}, {16, -74}}, color = {0, 0, 127}));
+    connect(pulmonicValve.CR, const2.y) annotation(Line(points = {{86, -53}, {96, -53}, {96, -70}, {96, -70}}, color = {0, 0, 127}));
+    connect(pulmonicValve.RR, const4.y) annotation(Line(points = {{70, -53}, {66, -53}, {66, -68}, {66, -68}, {66, -68}}, color = {0, 0, 127}));
+    connect(bloodFlowOutflow1, pulmonicValve.Outflow) annotation(Line(points = {{112, -42}, {86, -42}, {86, -44}, {86, -44}}));
+    connect(pulmonicValve.Inflow, RightVentricle.Outflow) annotation(Line(points = {{69, -44}, {58, -44}, {58, -44}, {58, -44}}));
+    connect(RightVentricle.Inflow, tricuspidValve.Outflow) annotation(Line(points = {{39, -44}, {-4, -44}, {-4, -44}, {-4, -44}}));
+    connect(RightAtrium.Outflow, tricuspidValve.Inflow) annotation(Line(points = {{-41, -44}, {-22, -44}, {-22, -44}, {-22, -44}}));
+    connect(RightAtrium.Inflow, bloodFlowInflow1) annotation(Line(points = {{-59, -44}, {-94, -44}, {-94, -50}}));
     annotation(Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})), Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})));
   end RightHeart;
   annotation(Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})), Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})));
