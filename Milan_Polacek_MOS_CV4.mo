@@ -188,8 +188,8 @@ package MOS_CV4
   end VentricularElastance;
 
   model RightHeart
-    BloodElasticCompartment RightAtrium annotation(Placement(visible = true, transformation(origin = {-50, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-    BloodElasticCompartment RightVentricle annotation(Placement(visible = true, transformation(origin = {48, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    BloodElasticCompartment RightAtrium(V0 = 149) annotation(Placement(visible = true, transformation(origin = {-50, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    BloodElasticCompartment RightVentricle(V0 = 143) annotation(Placement(visible = true, transformation(origin = {48, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     CardiacValve tricuspidValve annotation(Placement(visible = true, transformation(origin = {-12, -44}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
     Modelica.Blocks.Sources.Constant RRAOUT(k = 0.003) annotation(Placement(visible = true, transformation(origin = {-22, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
     Modelica.Blocks.Sources.Constant CRABackflow(k = 0) annotation(Placement(visible = true, transformation(origin = {16, -84}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -197,9 +197,9 @@ package MOS_CV4
     Modelica.Blocks.Sources.Constant RRV(k = 0.003) annotation(Placement(visible = true, transformation(origin = {66, -78}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
     Modelica.Blocks.Sources.Constant CRVBackflow(k = 0) annotation(Placement(visible = true, transformation(origin = {96, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
     Modelica.Blocks.Sources.Constant VRAU(k = 30) annotation(Placement(visible = true, transformation(origin = {-90, -24}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-    AtrialElastance atrialElastance1 annotation(Placement(visible = true, transformation(origin = {-48, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    AtrialElastance rightAtrialElastance(EMIN = 0.05, EMAX = 0.06) annotation(Placement(visible = true, transformation(origin = {-48, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Modelica.Blocks.Sources.Constant VRVU(k = 40) annotation(Placement(visible = true, transformation(origin = {-3, -21}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
-    VentricularElastance ventricularElastance1 annotation(Placement(visible = true, transformation(origin = {28, 28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    VentricularElastance ventricularElastance1(EMIN = 0.057, EMAX = 0.49) annotation(Placement(visible = true, transformation(origin = {28, 28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Modelica.Blocks.Interfaces.RealInput PTH annotation(Placement(visible = true, transformation(origin = {82, 98}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {70, 80}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
     Modelica.Blocks.Interfaces.RealInput T0 annotation(Placement(visible = true, transformation(origin = {-96, 10}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-80, -28}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
     Modelica.Blocks.Interfaces.RealInput Tvs annotation(Placement(visible = true, transformation(origin = {-98, 36}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{-19, -19}, {19, 19}}, rotation = 0)));
@@ -209,17 +209,17 @@ package MOS_CV4
     BloodFlowOutflow bloodFlowOutflow1 annotation(Placement(visible = true, transformation(origin = {104, 32}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {108, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   equation
     connect(bloodFlowOutflow1, pulmonicValve.Outflow) annotation(Line(points = {{104, 32}, {103, 32}, {103, -44}, {86, -44}}));
-    connect(Tas, atrialElastance1.Tas) annotation(Line(points = {{6, 98}, {-58, 98}, {-58, 58}}, color = {0, 0, 127}));
+    connect(Tas, rightAtrialElastance.Tas) annotation(Line(points = {{6, 98}, {-58, 98}, {-58, 58}}, color = {0, 0, 127}));
     connect(Tas, ventricularElastance1.Tas) annotation(Line(points = {{6, 98}, {17, 98}, {17, 35}}, color = {0, 0, 127}));
     connect(Tvs, ventricularElastance1.Tvs) annotation(Line(points = {{-98, 36}, {1.5, 36}, {1.5, 26}, {17, 26}}, color = {0, 0, 127}));
-    connect(T0, atrialElastance1.T0) annotation(Line(points = {{-96, 10}, {-57, 10}, {-57, 41}}, color = {0, 0, 127}));
+    connect(T0, rightAtrialElastance.T0) annotation(Line(points = {{-96, 10}, {-57, 10}, {-57, 41}}, color = {0, 0, 127}));
     connect(T0, ventricularElastance1.T0) annotation(Line(points = {{-96, 10}, {-19.5, 10}, {-19.5, 22}, {17, 22}}, color = {0, 0, 127}));
     connect(PTH, RightAtrium.ExternalPressure) annotation(Line(points = {{82, 98}, {-50, 98}, {-50, -32}}, color = {0, 0, 127}));
     connect(PTH, RightVentricle.ExternalPressure) annotation(Line(points = {{82, 98}, {48, 98}, {48, -32}}, color = {0, 0, 127}));
     connect(Tav, ventricularElastance1.Tav) annotation(Line(points = {{-94, 60}, {6, 60}, {6, 30}, {16, 30}}, color = {0, 0, 127}));
     connect(ventricularElastance1.Et, RightVentricle.Elastance) annotation(Line(points = {{37, 35}, {56, 35}, {56, -36}}, color = {0, 0, 127}));
     connect(VRVU.y, RightVentricle.UnstressedVolume) annotation(Line(points = {{7, -21}, {7, -27.5}, {40, -27.5}, {40, -36}}, color = {0, 0, 127}));
-    connect(atrialElastance1.Et, RightAtrium.Elastance) annotation(Line(points = {{-38, 50}, {-38, 49}, {-34, 49}, {-34, 44}, {-22, 44}, {-22, 6}, {-42, 6}, {-42, -36}}, color = {0, 0, 127}));
+    connect(rightAtrialElastance.Et, RightAtrium.Elastance) annotation(Line(points = {{-38, 50}, {-38, 49}, {-34, 49}, {-34, 44}, {-22, 44}, {-22, 6}, {-42, 6}, {-42, -36}}, color = {0, 0, 127}));
     connect(VRAU.y, RightAtrium.UnstressedVolume) annotation(Line(points = {{-79, -24}, {-58, -24}, {-58, -36}, {-58, -36}, {-58, -36}}, color = {0, 0, 127}));
     connect(tricuspidValve.RR, RRAOUT.y) annotation(Line(points = {{-20, -53}, {-22, -53}, {-22, -70}, {-22, -70}}, color = {0, 0, 127}));
     connect(tricuspidValve.CR, CRABackflow.y) annotation(Line(points = {{-4, -53}, {16, -53}, {16, -74}, {16, -74}}, color = {0, 0, 127}));
@@ -233,8 +233,8 @@ package MOS_CV4
   end RightHeart;
 
   model LeftHeart
-    BloodElasticCompartment LeftAtrium annotation(Placement(visible = true, transformation(origin = {-50, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-    BloodElasticCompartment LeftVentricle annotation(Placement(visible = true, transformation(origin = {48, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    BloodElasticCompartment LeftAtrium(V0 = 89) annotation(Placement(visible = true, transformation(origin = {-50, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    BloodElasticCompartment LeftVentricle(V0 = 138) annotation(Placement(visible = true, transformation(origin = {48, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     CardiacValve tricuspidValve annotation(Placement(visible = true, transformation(origin = {-12, -44}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
     Modelica.Blocks.Sources.Constant RLAOUT(k = 0.003) annotation(Placement(visible = true, transformation(origin = {-22, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
     Modelica.Blocks.Sources.Constant CLABackflow(k = 0) annotation(Placement(visible = true, transformation(origin = {16, -84}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -242,9 +242,9 @@ package MOS_CV4
     Modelica.Blocks.Sources.Constant RLV(k = 0.003) annotation(Placement(visible = true, transformation(origin = {66, -78}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
     Modelica.Blocks.Sources.Constant CLVBackflow(k = 0) annotation(Placement(visible = true, transformation(origin = {96, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
     Modelica.Blocks.Sources.Constant VLAU(k = 30) annotation(Placement(visible = true, transformation(origin = {-90, -24}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-    AtrialElastance atrialElastance1 annotation(Placement(visible = true, transformation(origin = {-48, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-    Modelica.Blocks.Sources.Constant VLVU(k = 40) annotation(Placement(visible = true, transformation(origin = {-3, -21}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
-    VentricularElastance ventricularElastance1 annotation(Placement(visible = true, transformation(origin = {28, 28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    AtrialElastance rightAtrialElastance(EMIN = 0.12, EMAX = 0.28) annotation(Placement(visible = true, transformation(origin = {-48, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Modelica.Blocks.Sources.Constant VLVU(k = 60) annotation(Placement(visible = true, transformation(origin = {-3, -21}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
+    VentricularElastance ventricularElastance1(EMIN = 0.09, EMAX = 4) annotation(Placement(visible = true, transformation(origin = {28, 28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Modelica.Blocks.Interfaces.RealInput PTH annotation(Placement(visible = true, transformation(origin = {86, 96}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {70, 80}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
     Modelica.Blocks.Interfaces.RealInput Tvs annotation(Placement(visible = true, transformation(origin = {-90, 26}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{-19, -19}, {19, 19}}, rotation = 0)));
     Modelica.Blocks.Interfaces.RealInput Tav annotation(Placement(visible = true, transformation(origin = {-92, 50}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-84, 52}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
@@ -254,16 +254,16 @@ package MOS_CV4
     BloodFlowOutflow bloodFlowOutflow1 annotation(Placement(visible = true, transformation(origin = {112, -42}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -62}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   equation
     connect(T0, ventricularElastance1.T0) annotation(Line(points = {{-100, 0}, {-38.5, 0}, {-38.5, 22}, {17, 22}}, color = {0, 0, 127}));
-    connect(T0, atrialElastance1.T0) annotation(Line(points = {{-100, 0}, {-57, 0}, {-57, 41}}, color = {0, 0, 127}));
+    connect(T0, rightAtrialElastance.T0) annotation(Line(points = {{-100, 0}, {-57, 0}, {-57, 41}}, color = {0, 0, 127}));
     connect(Tav, ventricularElastance1.Tav) annotation(Line(points = {{-92, 50}, {6, 50}, {6, 30}, {16, 30}}, color = {0, 0, 127}));
     connect(Tvs, ventricularElastance1.Tvs) annotation(Line(points = {{-90, 26}, {17, 26}}, color = {0, 0, 127}));
     connect(PTH, LeftAtrium.ExternalPressure) annotation(Line(points = {{86, 96}, {-50, 96}, {-50, -32}}, color = {0, 0, 127}));
     connect(PTH, LeftVentricle.ExternalPressure) annotation(Line(points = {{86, 96}, {48, 96}, {48, -32}}, color = {0, 0, 127}));
     connect(ventricularElastance1.Et, LeftVentricle.Elastance) annotation(Line(points = {{37, 35}, {56, 35}, {56, -36}}, color = {0, 0, 127}));
     connect(Tas, ventricularElastance1.Tas) annotation(Line(points = {{-80, 92}, {17, 92}, {17, 35}}, color = {0, 0, 127}));
-    connect(Tas, atrialElastance1.Tas) annotation(Line(points = {{-80, 92}, {-58, 92}, {-58, 58}}, color = {0, 0, 127}));
+    connect(Tas, rightAtrialElastance.Tas) annotation(Line(points = {{-80, 92}, {-58, 92}, {-58, 58}}, color = {0, 0, 127}));
     connect(VLVU.y, LeftVentricle.UnstressedVolume) annotation(Line(points = {{7, -21}, {7, -27.5}, {40, -27.5}, {40, -36}}, color = {0, 0, 127}));
-    connect(atrialElastance1.Et, LeftAtrium.Elastance) annotation(Line(points = {{-38, 50}, {-38, 49}, {-34, 49}, {-34, 44}, {-22, 44}, {-22, 6}, {-42, 6}, {-42, -36}}, color = {0, 0, 127}));
+    connect(rightAtrialElastance.Et, LeftAtrium.Elastance) annotation(Line(points = {{-38, 50}, {-38, 49}, {-34, 49}, {-34, 44}, {-22, 44}, {-22, 6}, {-42, 6}, {-42, -36}}, color = {0, 0, 127}));
     connect(VLAU.y, LeftAtrium.UnstressedVolume) annotation(Line(points = {{-79, -24}, {-58, -24}, {-58, -36}, {-58, -36}, {-58, -36}}, color = {0, 0, 127}));
     connect(tricuspidValve.RR, RLAOUT.y) annotation(Line(points = {{-20, -53}, {-22, -53}, {-22, -70}, {-22, -70}}, color = {0, 0, 127}));
     connect(tricuspidValve.CR, CLABackflow.y) annotation(Line(points = {{-4, -53}, {16, -53}, {16, -74}, {16, -74}}, color = {0, 0, 127}));
@@ -278,58 +278,58 @@ package MOS_CV4
   end LeftHeart;
 
   model SystemicArteries
-    Inductor BloodFlouwInertia annotation(Placement(visible = true, transformation(origin = {18, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     VariableBloodResistor ExtrathoracicArterialResistance annotation(Placement(visible = true, transformation(origin = {-18, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
     BloodFlowOutflow Outflow annotation(Placement(visible = true, transformation(origin = {-92, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Modelica.Blocks.Sources.Constant RETHA(k = 0.06) annotation(Placement(visible = true, transformation(origin = {-46, -30}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
     Modelica.Blocks.Interfaces.RealInput IntrathoracicPressure annotation(Placement(visible = true, transformation(origin = {-78, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {0, 80}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
     BloodFlowInflow Inflow annotation(Placement(visible = true, transformation(origin = {92, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {92, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-    BloodElasticCompartment ExtrathoracicArteries annotation(Placement(visible = true, transformation(origin = {-50, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-    BloodElasticCompartment IntrathoracicArteries annotation(Placement(visible = true, transformation(origin = {52, -4}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Modelica.Blocks.Sources.Constant LETHA(k = 0.0007) annotation(Placement(visible = true, transformation(origin = {16, 66}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
     Modelica.Blocks.Sources.Constant EITHA(k = 1.43) annotation(Placement(visible = true, transformation(origin = {38, 64}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
     Modelica.Blocks.Sources.Constant VITHAU(k = 140) annotation(Placement(visible = true, transformation(origin = {66, 68}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
     Modelica.Blocks.Sources.Constant EETHA(k = 0.556) annotation(Placement(visible = true, transformation(origin = {-80, 22}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
     Modelica.Blocks.Sources.Constant Pext(k = 0) annotation(Placement(visible = true, transformation(origin = {-84, 48}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
     Modelica.Blocks.Sources.Constant VETHAU(k = 370) annotation(Placement(visible = true, transformation(origin = {-56, 52}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
+    BloodElasticCompartment ExtrathoracicArteries(V0 = 519) annotation(Placement(visible = true, transformation(origin = {-50, -2}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+    BloodElasticCompartment IntrathoracicArteries(V0 = 201) annotation(Placement(visible = true, transformation(origin = {52, -4}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+    Inductor BloodFlouwInertia annotation(Placement(visible = true, transformation(origin = {18, -2}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   equation
-    connect(VETHAU.y, ExtrathoracicArteries.Elastance) annotation(Line(points = {{-47, 52}, {-42, 52}, {-42, 6}}, color = {0, 0, 127}));
-    connect(ExtrathoracicArteries.ExternalPressure, Pext.y) annotation(Line(points = {{-50, 10}, {-50, 35.5}, {-75, 35.5}, {-75, 48}}, color = {0, 0, 127}));
-    connect(EETHA.y, ExtrathoracicArteries.UnstressedVolume) annotation(Line(points = {{-71, 22}, {-58, 22}, {-58, 6}}, color = {0, 0, 127}));
-    connect(VITHAU.y, IntrathoracicArteries.Elastance) annotation(Line(points = {{66, 59}, {60, 59}, {60, 4}}, color = {0, 0, 127}));
-    connect(EITHA.y, IntrathoracicArteries.UnstressedVolume) annotation(Line(points = {{38, 55}, {44, 55}, {44, 4}}, color = {0, 0, 127}));
+    connect(EETHA.y, ExtrathoracicArteries.Elastance) annotation(Line(points = {{-71, 22}, {-58, 22}, {-58, 6}, {-58, 6}}, color = {0, 0, 127}));
+    connect(VETHAU.y, ExtrathoracicArteries.UnstressedVolume) annotation(Line(points = {{-47, 52}, {-42, 52}, {-42, 6}, {-42, 6}}, color = {0, 0, 127}));
+    connect(IntrathoracicArteries.Elastance, EITHA.y) annotation(Line(points = {{44, 4}, {38, 4}, {38, 56}, {38, 56}}, color = {0, 0, 127}));
+    connect(IntrathoracicArteries.UnstressedVolume, VITHAU.y) annotation(Line(points = {{60, 4}, {66, 4}, {66, 60}, {66, 60}}, color = {0, 0, 127}));
+    connect(IntrathoracicArteries.Inflow, Inflow) annotation(Line(points = {{61, -4}, {86, -4}, {86, -2}, {86, -2}}));
+    connect(IntrathoracicArteries.Outflow, BloodFlouwInertia.Inflow) annotation(Line(points = {{43, -4}, {26, -4}, {26, -2}, {26, -2}}));
+    connect(BloodFlouwInertia.Outflow, ExtrathoracicArterialResistance.Inflow) annotation(Line(points = {{9, -2}, {-8, -2}, {-8, -2}, {-8, -2}}));
+    connect(ExtrathoracicArterialResistance.Outflow, ExtrathoracicArteries.Inflow) annotation(Line(points = {{-27, -2}, {-42, -2}, {-42, -2}, {-42, -2}}));
+    connect(ExtrathoracicArteries.Outflow, Outflow) annotation(Line(points = {{-59, -2}, {-84, -2}, {-84, -4}, {-84, -4}}));
     connect(LETHA.y, BloodFlouwInertia.Inertance) annotation(Line(points = {{16, 57}, {18, 57}, {18, 6}}, color = {0, 0, 127}));
-    connect(IntrathoracicArteries.ExternalPressure, IntrathoracicPressure) annotation(Line(points = {{52, 8}, {50, 8}, {50, 82}, {-70, 82}, {-70, 82}}, color = {0, 0, 127}));
-    connect(IntrathoracicArteries.Outflow, Inflow) annotation(Line(points = {{61, -4}, {88, -4}, {88, -2}, {88, -2}}));
-    connect(IntrathoracicArteries.Inflow, BloodFlouwInertia.Outflow) annotation(Line(points = {{43, -4}, {28, -4}, {28, -2}, {28, -2}}));
-    connect(ExtrathoracicArteries.Outflow, ExtrathoracicArterialResistance.Outflow) annotation(Line(points = {{-41, -2}, {-26, -2}, {-26, -2}, {-26, -2}}));
-    connect(ExtrathoracicArteries.Inflow, Outflow) annotation(Line(points = {{-59, -2}, {-90, -2}, {-90, -2}, {-90, -2}}));
+    connect(IntrathoracicArteries.ExternalPressure, IntrathoracicPressure) annotation(Line(points = {{52, 8}, {50, 8}, {50, 82}, {-70, 82}}, color = {0, 0, 127}));
+    connect(ExtrathoracicArteries.ExternalPressure, Pext.y) annotation(Line(points = {{-50, 10}, {-50, 35.5}, {-75, 35.5}, {-75, 48}}, color = {0, 0, 127}));
     connect(RETHA.y, ExtrathoracicArterialResistance.BloodResistance) annotation(Line(points = {{-37, -30}, {-18, -30}, {-18, -12}, {-18, -12}}, color = {0, 0, 127}));
-    connect(ExtrathoracicArterialResistance.Inflow, BloodFlouwInertia.Inflow) annotation(Line(points = {{-9, -2}, {9, -2}}));
     annotation(Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})), Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2}), graphics = {Rectangle(origin = {5, -12}, fillColor = {240, 32, 13}, fillPattern = FillPattern.Solid, extent = {{-89, 84}, {89, -84}}), Ellipse(origin = {-85, -10}, fillColor = {41, 9, 199}, fillPattern = FillPattern.Solid, extent = {{-7, 84}, {7, -84}}, endAngle = 360), Text(origin = {0, 41}, extent = {{-56, 15}, {56, -15}}, textString = "intrathoracic pressure"), Text(origin = {2, -70}, extent = {{-62, 18}, {62, -18}}, textString = "%name")}));
   end SystemicArteries;
 
   model SystemicPeripheralVessels
     Modelica.Blocks.Sources.Constant EET(k = 0.262) annotation(Placement(visible = true, transformation(origin = {-26, 38}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
     Modelica.Blocks.Sources.Constant RTA(k = 0.2) annotation(Placement(visible = true, transformation(origin = {-70, 38}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
-    VariableBloodResistor SmallVenuleResistances annotation(Placement(visible = true, transformation(origin = {-57, -5}, extent = {{-11, -11}, {11, 11}}, rotation = 0)));
-    VariableBloodResistor SystemicArteriolaResistance annotation(Placement(visible = true, transformation(origin = {52, -4}, extent = {{-12, -12}, {12, 12}}, rotation = 0)));
     Modelica.Blocks.Sources.Constant TUV(k = 185) annotation(Placement(visible = true, transformation(origin = {26, 38}, extent = {{-8, -8}, {8, 8}}, rotation = 180)));
     Modelica.Blocks.Sources.Constant Pext(k = 0) annotation(Placement(visible = true, transformation(origin = {0, 58}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
-    BloodFlowInflow bloodFlowInflow annotation(Placement(visible = true, transformation(origin = {83, -3}, extent = {{-9, -9}, {9, 9}}, rotation = 0), iconTransformation(origin = {92, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Modelica.Blocks.Interfaces.RealInput PeripheralArteriolarResistance annotation(Placement(visible = true, transformation(origin = {78, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 180), iconTransformation(origin = {-1, 67}, extent = {{-13, -13}, {13, 13}}, rotation = -90)));
     BloodFlowOutflow bloodFlowOutflow annotation(Placement(visible = true, transformation(origin = {-89, -5}, extent = {{-9, -9}, {9, 9}}, rotation = 0), iconTransformation(origin = {-92, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-    BloodElasticCompartment BloodTissueElasticCompartment annotation(Placement(visible = true, transformation(origin = {-1, -9}, extent = {{-21, -21}, {21, 21}}, rotation = 0)));
+    VariableBloodResistor SmallVenuleResistances annotation(Placement(visible = true, transformation(origin = {-57, -5}, extent = {{11, -11}, {-11, 11}}, rotation = 0)));
+    BloodElasticCompartment BloodTissueElasticCompartment(V0 = 281) annotation(Placement(visible = true, transformation(origin = {1, -5}, extent = {{21, -21}, {-21, 21}}, rotation = 0)));
+    VariableBloodResistor SystemicArteriolaResistance annotation(Placement(visible = true, transformation(origin = {52, -4}, extent = {{12, -12}, {-12, 12}}, rotation = 0)));
+    BloodFlowInflow bloodFlowInflow annotation(Placement(visible = true, transformation(origin = {83, -5}, extent = {{-9, -9}, {9, 9}}, rotation = 0), iconTransformation(origin = {92, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   equation
-    connect(BloodTissueElasticCompartment.Outflow, SystemicArteriolaResistance.Inflow) annotation(Line(points = {{19, -9}, {30, -9}, {30, -4}, {42, -4}, {42, -4}}));
-    connect(TUV.y, BloodTissueElasticCompartment.Elastance) annotation(Line(points = {{17, 38}, {14, 38}, {14, 10}, {14, 10}}, color = {0, 0, 127}));
-    connect(BloodTissueElasticCompartment.ExternalPressure, Pext.y) annotation(Line(points = {{-1, 15}, {0, 15}, {0, 50}, {0, 50}}, color = {0, 0, 127}));
-    connect(BloodTissueElasticCompartment.UnstressedVolume, EET.y) annotation(Line(points = {{-18, 8}, {-18, 25}, {-17, 25}, {-17, 38}}, color = {0, 0, 127}));
-    connect(SmallVenuleResistances.Outflow, BloodTissueElasticCompartment.Inflow) annotation(Line(points = {{-47, -5}, {-33.5, -5}, {-33.5, -9}, {-20, -9}}));
-    connect(SmallVenuleResistances.Inflow, bloodFlowOutflow) annotation(Line(points = {{-67, -5}, {-89, -5}}));
-    connect(SystemicArteriolaResistance.Outflow, bloodFlowInflow) annotation(Line(points = {{63, -4}, {75.5, -4}, {75.5, -3}, {83, -3}}));
-    connect(PeripheralArteriolarResistance, SystemicArteriolaResistance.BloodResistance) annotation(Line(points = {{78, 60}, {52, 60}, {52, 6}, {52, 6}}, color = {0, 0, 127}));
-    connect(RTA.y, SmallVenuleResistances.BloodResistance) annotation(Line(points = {{-61, 38}, {-58, 38}, {-58, 4}, {-58, 4}}, color = {0, 0, 127}));
+    connect(TUV.y, BloodTissueElasticCompartment.UnstressedVolume) annotation(Line(points = {{17, 38}, {18, 38}, {18, 12}, {18, 12}}, color = {0, 0, 127}));
+    connect(EET.y, BloodTissueElasticCompartment.Elastance) annotation(Line(points = {{-17, 38}, {-14, 38}, {-14, 12}, {-14, 12}}, color = {0, 0, 127}));
+    connect(BloodTissueElasticCompartment.Outflow, SmallVenuleResistances.Inflow) annotation(Line(points = {{-19, -5}, {-48, -5}, {-48, -6}, {-48, -6}}));
+    connect(SystemicArteriolaResistance.Outflow, BloodTissueElasticCompartment.Inflow) annotation(Line(points = {{41, -4}, {20, -4}, {20, -6}, {20, -6}}));
+    connect(SystemicArteriolaResistance.Inflow, bloodFlowInflow) annotation(Line(points = {{63, -4}, {71.5, -4}, {71.5, -5}, {83, -5}}));
+    connect(PeripheralArteriolarResistance, SystemicArteriolaResistance.BloodResistance) annotation(Line(points = {{78, 60}, {52, 60}, {52, 3}}, color = {0, 0, 127}));
+    connect(BloodTissueElasticCompartment.ExternalPressure, Pext.y) annotation(Line(points = {{1, 19}, {0, 19}, {0, 50}}, color = {0, 0, 127}));
+    connect(SmallVenuleResistances.Outflow, bloodFlowOutflow) annotation(Line(points = {{-67, -5}, {-89, -5}}));
+    connect(RTA.y, SmallVenuleResistances.BloodResistance) annotation(Line(points = {{-61, 38}, {-57, 38}, {-57, 2}}, color = {0, 0, 127}));
     annotation(Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})), Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2}), graphics = {Ellipse(origin = {1, -5}, lineColor = {240, 0, 0}, lineThickness = 1, extent = {{-85, 69}, {85, -69}}, endAngle = 360), Ellipse(origin = {-1, 0}, lineColor = {240, 0, 0}, lineThickness = 1, extent = {{-85, -12}, {85, 12}}, endAngle = 360), Ellipse(origin = {2, -1}, lineColor = {240, 0, 0}, lineThickness = 1, extent = {{-86, -19}, {86, 19}}, endAngle = 360), Text(origin = {-28, -37}, extent = {{54, -21}, {-2, 1}}, textString = "%name"), Text(origin = {-27, 42}, extent = {{75, -20}, {-3, 2}}, textString = "peripheral Resistance")}));
   end SystemicPeripheralVessels;
 
@@ -342,34 +342,32 @@ package MOS_CV4
     Modelica.Blocks.Sources.Constant EETHV(k = 0.0169) annotation(Placement(visible = true, transformation(origin = {30, 56}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
     Modelica.Blocks.Sources.Constant RETHV(k = 0.09) annotation(Placement(visible = true, transformation(origin = {16, -40}, extent = {{-8, -8}, {8, 8}}, rotation = 90)));
     Modelica.Blocks.Sources.Constant RRAIN(k = 0.003) annotation(Placement(visible = true, transformation(origin = {-60, -48}, extent = {{-8, -8}, {8, 8}}, rotation = 90)));
-    BloodElasticCompartment extrathoracicVeins annotation(Placement(visible = true, transformation(origin = {60, -12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     VariableBloodResistor VeinsResistance annotation(Placement(visible = true, transformation(origin = {16, -12}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-    BloodElasticCompartment intrathoracicVeins annotation(Placement(visible = true, transformation(origin = {-22, -12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     VariableBloodResistor centralVenousResistance annotation(Placement(visible = true, transformation(origin = {-60, -12}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
     BloodFlowInflow Inflow annotation(Placement(visible = true, transformation(origin = {90, -12}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-96, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     BloodFlowOutflow Outflow annotation(Placement(visible = true, transformation(origin = {-86, -12}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {92, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    BloodElasticCompartment intrathoracicVeins(V0 = 1523) annotation(Placement(visible = true, transformation(origin = {-22, -12}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+    BloodElasticCompartment extrathoracicVeins(V0 = 1546) annotation(Placement(visible = true, transformation(origin = {60, -12}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   equation
-    connect(centralVenousResistance.Outflow, Outflow) annotation(Line(points = {{-69, -12}, {-86, -12}}));
-    connect(extrathoracicVeins.Outflow, Inflow) annotation(Line(points = {{69.4, -12}, {90.4, -12}}));
-    connect(RRAIN.y, centralVenousResistance.BloodResistance) annotation(Line(points = {{-60, -39.2}, {-60, -20.2}}, color = {0, 0, 127}));
-    connect(intrathoracicVeins.Inflow, centralVenousResistance.Inflow) annotation(Line(points = {{-31, -12}, {-51, -12}}));
-    connect(intrathoracicVeins.Outflow, VeinsResistance.Outflow) annotation(Line(points = {{-12.6, -12}, {7.4, -12}}));
-    connect(EITHV.y, intrathoracicVeins.UnstressedVolume) annotation(Line(points = {{-39, 48}, {-30, 48}, {-30, -4}}, color = {0, 0, 127}));
-    connect(VITHVU.y, intrathoracicVeins.Elastance) annotation(Line(points = {{-10, 53}, {-10, 34.5}, {-14, 34.5}, {-14, -4}}, color = {0, 0, 127}));
-    connect(IntrathoracicPressure, intrathoracicVeins.ExternalPressure) annotation(Line(points = {{-82, 80}, {-22, 80}, {-22, 0}}, color = {0, 0, 127}));
-    connect(VeinsResistance.Inflow, extrathoracicVeins.Inflow) annotation(Line(points = {{25, -12}, {51, -12}}));
-    connect(RETHV.y, VeinsResistance.BloodResistance) annotation(Line(points = {{16, -31.2}, {16, -22.2}}, color = {0, 0, 127}));
-    connect(EETHV.y, extrathoracicVeins.UnstressedVolume) annotation(Line(points = {{30, 47}, {52, 47}, {52, -4}}, color = {0, 0, 127}));
+    connect(extrathoracicVeins.Inflow, Inflow) annotation(Line(points = {{69, -12}, {90, -12}}));
+    connect(extrathoracicVeins.Outflow, VeinsResistance.Inflow) annotation(Line(points = {{51, -12}, {25, -12}}));
+    connect(EETHV.y, extrathoracicVeins.Elastance) annotation(Line(points = {{30, 47}, {52, 47}, {52, -4}}, color = {0, 0, 127}));
+    connect(VETHVU.y, extrathoracicVeins.UnstressedVolume) annotation(Line(points = {{82, 47}, {68, 47}, {68, -4}}, color = {0, 0, 127}));
     connect(extrathoracicVeins.ExternalPressure, Pext.y) annotation(Line(points = {{60, 0}, {60, 27.5}, {58, 27.5}, {58, 49}}, color = {0, 0, 127}));
-    connect(VETHVU.y, extrathoracicVeins.Elastance) annotation(Line(points = {{82, 47}, {74, 47}, {74, 33}, {68, 33}, {68, -4}}, color = {0, 0, 127}));
+    connect(centralVenousResistance.Inflow, intrathoracicVeins.Outflow) annotation(Line(points = {{-51, -12}, {-30, -12}, {-30, -12}, {-30, -12}}));
+    connect(intrathoracicVeins.Inflow, VeinsResistance.Outflow) annotation(Line(points = {{-13, -12}, {8, -12}, {8, -12}, {8, -12}}));
+    connect(intrathoracicVeins.UnstressedVolume, VITHVU.y) annotation(Line(points = {{-14, -4}, {-14, 50}, {-10, 50}, {-10, 53}}, color = {0, 0, 127}));
+    connect(EITHV.y, intrathoracicVeins.Elastance) annotation(Line(points = {{-39, 48}, {-30, 48}, {-30, -4}}, color = {0, 0, 127}));
+    connect(IntrathoracicPressure, intrathoracicVeins.ExternalPressure) annotation(Line(points = {{-82, 80}, {-22, 80}, {-22, 0}}, color = {0, 0, 127}));
+    connect(centralVenousResistance.Outflow, Outflow) annotation(Line(points = {{-69, -12}, {-86, -12}}));
+    connect(RRAIN.y, centralVenousResistance.BloodResistance) annotation(Line(points = {{-60, -39.2}, {-60, -20.2}}, color = {0, 0, 127}));
+    connect(RETHV.y, VeinsResistance.BloodResistance) annotation(Line(points = {{16, -31.2}, {16, -22.2}}, color = {0, 0, 127}));
     annotation(Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})), Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2}), graphics = {Rectangle(origin = {-4, 4}, lineColor = {0, 85, 255}, fillColor = {0, 170, 255}, fillPattern = FillPattern.Solid, extent = {{-78, 42}, {78, -42}}), Text(origin = {2, 18}, extent = {{-72, 8}, {72, -8}}, textString = "intrathoracic pressure"), Ellipse(origin = {-83, 4}, fillColor = {0, 85, 127}, fillPattern = FillPattern.Solid, extent = {{9, 40}, {-9, -40}}, endAngle = 360), Text(origin = {-5, -19}, extent = {{-33, 11}, {33, -11}}, textString = "%name")}));
   end SystemicVeins;
 
   model PulmonaryCirculation
-    BloodElasticCompartment PulmonaryVeins annotation(Placement(visible = true, transformation(origin = {10, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-    VariableBloodResistor PulmonaryVeinResistance annotation(Placement(visible = true, transformation(origin = {52, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-    BloodElasticCompartment pULMONARYaRTERIES annotation(Placement(visible = true, transformation(origin = {-60, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-    VariableBloodResistor PulmonaryArteriesResistance annotation(Placement(visible = true, transformation(origin = {-28, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    BloodElasticCompartment PulmonaryVeins(V0 = 508) annotation(Placement(visible = true, transformation(origin = {10, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    BloodElasticCompartment pULMONARYaRTERIES(V0 = 103) annotation(Placement(visible = true, transformation(origin = {-60, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Modelica.Blocks.Sources.Constant RLAIN(k = 0.003) annotation(Placement(visible = true, transformation(origin = {32, -26}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
     Modelica.Blocks.Sources.Constant RPP(k = 0.11) annotation(Placement(visible = true, transformation(origin = {-48, -26}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
     BloodFlowOutflow Outflow annotation(Placement(visible = true, transformation(origin = {78, 6}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -379,20 +377,22 @@ package MOS_CV4
     Modelica.Blocks.Sources.Constant VPVU(k = 350) annotation(Placement(visible = true, transformation(origin = {-2, 50}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
     Modelica.Blocks.Sources.Constant EPV(k = 0.0455) annotation(Placement(visible = true, transformation(origin = {22, 52}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
     Modelica.Blocks.Interfaces.RealInput IntrathoracicPressure annotation(Placement(visible = true, transformation(origin = {-100, 84}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-5, 53}, extent = {{-17, -17}, {17, 17}}, rotation = -90)));
+    VariableBloodResistor PulmonaryVeinResistance annotation(Placement(visible = true, transformation(origin = {52, 6}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
+    VariableBloodResistor PulmonaryArteriesResistance annotation(Placement(visible = true, transformation(origin = {-28, 6}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
   equation
+    connect(PulmonaryArteriesResistance.Outflow, PulmonaryVeins.Inflow) annotation(Line(points = {{-19, 6}, {2, 6}, {2, 6}, {2, 6}}));
+    connect(pULMONARYaRTERIES.Outflow, PulmonaryArteriesResistance.Inflow) annotation(Line(points = {{-51, 6}, {-36, 6}, {-36, 6}, {-36, 6}}));
+    connect(RPP.y, PulmonaryArteriesResistance.BloodResistance) annotation(Line(points = {{-39, -26}, {-28, -26}, {-28, 0}}, color = {0, 0, 127}));
+    connect(PulmonaryVeinResistance.Outflow, Outflow) annotation(Line(points = {{61, 6}, {74, 6}, {74, 6}, {74, 6}}));
+    connect(PulmonaryVeins.Outflow, PulmonaryVeinResistance.Inflow) annotation(Line(points = {{19, 6}, {44, 6}, {44, 6}, {44, 6}}));
+    connect(RLAIN.y, PulmonaryVeinResistance.BloodResistance) annotation(Line(points = {{41, -26}, {52, -26}, {52, 0}}, color = {0, 0, 127}));
     connect(EPV.y, PulmonaryVeins.Elastance) annotation(Line(points = {{22, 43}, {18, 43}, {18, 14}}, color = {0, 0, 127}));
     connect(VPVU.y, PulmonaryVeins.UnstressedVolume) annotation(Line(points = {{-2, 41}, {2, 41}, {2, 14}}, color = {0, 0, 127}));
     connect(EPA.y, pULMONARYaRTERIES.Elastance) annotation(Line(points = {{-44, 43}, {-52, 43}, {-52, 14}}, color = {0, 0, 127}));
     connect(VPAU.y, pULMONARYaRTERIES.UnstressedVolume) annotation(Line(points = {{-72, 37}, {-68, 37}, {-68, 14}}, color = {0, 0, 127}));
     connect(IntrathoracicPressure, PulmonaryVeins.ExternalPressure) annotation(Line(points = {{-100, 84}, {10, 84}, {10, 18}}, color = {0, 0, 127}));
     connect(IntrathoracicPressure, pULMONARYaRTERIES.ExternalPressure) annotation(Line(points = {{-100, 84}, {-60, 84}, {-60, 18}}, color = {0, 0, 127}));
-    connect(PulmonaryVeinResistance.Inflow, Outflow) annotation(Line(points = {{61, 6}, {78, 6}}));
     connect(pULMONARYaRTERIES.Inflow, Inflow) annotation(Line(points = {{-69, 6}, {-88, 6}}));
-    connect(RPP.y, PulmonaryArteriesResistance.BloodResistance) annotation(Line(points = {{-39, -26}, {-28, -26}, {-28, -2}}, color = {0, 0, 127}));
-    connect(RLAIN.y, PulmonaryVeinResistance.BloodResistance) annotation(Line(points = {{41, -26}, {52, -26}, {52, -2}}, color = {0, 0, 127}));
-    connect(pULMONARYaRTERIES.Outflow, PulmonaryArteriesResistance.Outflow) annotation(Line(points = {{-51, 6}, {-37, 6}}));
-    connect(PulmonaryVeins.Inflow, PulmonaryArteriesResistance.Inflow) annotation(Line(points = {{1, 6}, {-19, 6}}));
-    connect(PulmonaryVeins.Outflow, PulmonaryVeinResistance.Outflow) annotation(Line(points = {{19, 6}, {42, 6}, {42, 6}, {42, 6}}));
     annotation(Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})), Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2}), graphics = {Rectangle(origin = {-8, 7}, fillColor = {255, 170, 0}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-74, 41}, {74, -41}}), Ellipse(origin = {-83, 4}, fillColor = {0, 0, 127}, fillPattern = FillPattern.Solid, extent = {{9, 40}, {-9, -40}}, endAngle = 360), Text(origin = {0, 28}, extent = {{-72, 8}, {72, -8}}, textString = "intrathoracic pressure"), Text(origin = {-24, 4}, extent = {{-30, 8}, {54, -24}}, textString = "%name")}));
   end PulmonaryCirculation;
 
