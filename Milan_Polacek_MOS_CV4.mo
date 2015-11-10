@@ -195,7 +195,7 @@ package MOS_CV4
     Modelica.Blocks.Sources.Constant CRABackflow(k = 0) annotation(Placement(visible = true, transformation(origin = {16, -84}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
     CardiacValve pulmonicValve annotation(Placement(visible = true, transformation(origin = {78, -44}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
     Modelica.Blocks.Sources.Constant RRV(k = 0.003) annotation(Placement(visible = true, transformation(origin = {66, -78}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-    Modelica.Blocks.Sources.Constant CRVBackflow(k = 0) annotation(Placement(visible = true, transformation(origin = {96, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Modelica.Blocks.Sources.Constant CRVBackflow(k = 1) annotation(Placement(visible = true, transformation(origin = {96, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
     Modelica.Blocks.Sources.Constant VRAU(k = 30) annotation(Placement(visible = true, transformation(origin = {-90, -24}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     AtrialElastance rightAtrialElastance(EMIN = 0.05, EMAX = 0.06) annotation(Placement(visible = true, transformation(origin = {-48, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Modelica.Blocks.Sources.Constant VRVU(k = 40) annotation(Placement(visible = true, transformation(origin = {-3, -21}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
