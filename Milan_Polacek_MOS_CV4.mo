@@ -208,8 +208,8 @@ package MOS_CV4
     BloodFlowInflow bloodFlowInflow1 annotation(Placement(visible = true, transformation(origin = {-94, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-108, -64}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     BloodFlowOutflow bloodFlowOutflow1 annotation(Placement(visible = true, transformation(origin = {104, 32}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {108, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   equation
+    connect(Tas, rightAtrialElastance.Tas) annotation(Line(points = {{6, 98}, {6, 80}, {-56, 80}, {-56, 72}, {-68, 72}, {-68, 58}, {-58, 58}}, color = {0, 0, 127}));
     connect(bloodFlowOutflow1, pulmonicValve.Outflow) annotation(Line(points = {{104, 32}, {103, 32}, {103, -44}, {86, -44}}));
-    connect(Tas, rightAtrialElastance.Tas) annotation(Line(points = {{6, 98}, {-58, 98}, {-58, 58}}, color = {0, 0, 127}));
     connect(Tas, ventricularElastance1.Tas) annotation(Line(points = {{6, 98}, {17, 98}, {17, 35}}, color = {0, 0, 127}));
     connect(Tvs, ventricularElastance1.Tvs) annotation(Line(points = {{-98, 36}, {1.5, 36}, {1.5, 26}, {17, 26}}, color = {0, 0, 127}));
     connect(T0, rightAtrialElastance.T0) annotation(Line(points = {{-96, 10}, {-57, 10}, {-57, 41}}, color = {0, 0, 127}));
