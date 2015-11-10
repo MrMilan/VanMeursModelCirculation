@@ -402,22 +402,22 @@ package MOS_CV4
     HeartIntervals heartIntervals1 annotation(Placement(visible = true, transformation(origin = {-75, 53}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
     Modelica.Blocks.Sources.Constant PTH(k = -4) annotation(Placement(visible = true, transformation(origin = {-88, 22}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
     RightHeart rightHeart1 annotation(Placement(visible = true, transformation(origin = {-23, 17}, extent = {{-21, -21}, {21, 21}}, rotation = 0)));
-    SystemicVeins systemicVeins annotation(Placement(visible = true, transformation(origin = {-68, -68}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
     SystemicPeripheralVessels systemicPeripheralVessels annotation(Placement(visible = true, transformation(origin = {-3, -65}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
     SystemicArteries systemicArteries annotation(Placement(visible = true, transformation(origin = {67, -65}, extent = {{-19, -19}, {19, 19}}, rotation = 0)));
     Modelica.Blocks.Sources.Constant RSP(k = 0.8) annotation(Placement(visible = true, transformation(origin = {-43, -47}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
     PulmonaryCirculation pulmonaryCirculation annotation(Placement(visible = true, transformation(origin = {33, -15}, extent = {{-17, 17}, {17, -17}}, rotation = 0)));
+    SystemicVeins systemicVeins annotation(Placement(visible = true, transformation(origin = {-68, -68}, extent = {{18, -18}, {-18, 18}}, rotation = 0)));
   equation
+    connect(systemicVeins.Outflow, rightHeart1.bloodFlowInflow1) annotation(Line(points = {{-85, -67}, {-90, -67}, {-90, 4}, {-46, 4}}));
+    connect(systemicPeripheralVessels.bloodFlowOutflow, systemicVeins.Inflow) annotation(Line(points = {{-24, -65}, {-38.5, -65}, {-38.5, -67}, {-51, -67}}));
+    connect(systemicVeins.IntrathoracicPressure, PTH.y) annotation(Line(points = {{-68, -60}, {-68, 22}, {-80, 22}}, color = {0, 0, 127}));
     connect(rightHeart1.bloodFlowOutflow1, pulmonaryCirculation.Inflow) annotation(Line(points = {{0, 20}, {6, 20}, {6, -16}, {18, -16}, {18, -16}}));
     connect(pulmonaryCirculation.Outflow, leftHeart1.bloodFlowInflow1) annotation(Line(points = {{46, -16}, {46, 6}, {48, 6}}));
     connect(pulmonaryCirculation.IntrathoracicPressure, PTH.y) annotation(Line(points = {{32, -24}, {-76, -24}, {-76, 22}, {-80, 22}}, color = {0, 0, 127}));
     connect(leftHeart1.bloodFlowOutflow1, systemicArteries.Inflow) annotation(Line(points = {{92, 6}, {98, 6}, {98, -66}, {84, -66}, {84, -66}, {84, -66}}));
-    connect(rightHeart1.bloodFlowInflow1, systemicVeins.Inflow) annotation(Line(points = {{-46, 4}, {-92, 4}, {-92, -68}, {-86, -68}, {-86, -68}}));
     connect(RSP.y, systemicPeripheralVessels.PeripheralArteriolarResistance) annotation(Line(points = {{-35, -47}, {-3, -47}, {-3, -50}}, color = {0, 0, 127}));
     connect(systemicArteries.IntrathoracicPressure, PTH.y) annotation(Line(points = {{67, -50}, {67, -36}, {-72, -36}, {-72, 22}, {-80, 22}}, color = {0, 0, 127}));
     connect(systemicPeripheralVessels.bloodFlowInflow, systemicArteries.Outflow) annotation(Line(points = {{18, -65}, {50, -65}}));
-    connect(systemicVeins.Outflow, systemicPeripheralVessels.bloodFlowOutflow) annotation(Line(points = {{-51, -67}, {-35.5, -67}, {-35.5, -65}, {-24, -65}}));
-    connect(systemicVeins.IntrathoracicPressure, PTH.y) annotation(Line(points = {{-68, -60}, {-68, 22}, {-80, 22}}, color = {0, 0, 127}));
     connect(PTH.y, rightHeart1.PTH) annotation(Line(points = {{-80, 22}, {-54, 22}, {-54, 94}, {-8, 94}, {-8, 34}}, color = {0, 0, 127}));
     connect(heartIntervals1.T0, rightHeart1.T0) annotation(Line(points = {{-59, 38}, {-60, 38}, {-60, 11}, {-40, 11}}, color = {0, 0, 127}));
     connect(heartIntervals1.Tvs, rightHeart1.Tvs) annotation(Line(points = {{-59, 49}, {-50, 49}, {-50, 25}, {-44, 25}}, color = {0, 0, 127}));
