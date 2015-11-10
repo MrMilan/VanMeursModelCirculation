@@ -132,7 +132,7 @@ package MOS_CV4
 
   model HeartIntervals
     Boolean b;
-    Real HP;
+    discrete Real HP;
     discrete Modelica.Blocks.Interfaces.RealOutput T0 annotation(Placement(visible = true, transformation(origin = {117, -85}, extent = {{-17, -17}, {17, 17}}, rotation = 0), iconTransformation(origin = {92, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Modelica.Blocks.Interfaces.RealInput HR annotation(Placement(visible = true, transformation(origin = {-118, 10}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-90, 10}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
     discrete Modelica.Blocks.Interfaces.RealOutput Tas annotation(Placement(visible = true, transformation(origin = {112, 76}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {90, 88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
